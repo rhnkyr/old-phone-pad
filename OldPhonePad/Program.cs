@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace OldPhonePad;
 
-class Program
+public class Program
 {
     static void Main(string[] args)
     {
@@ -19,7 +19,7 @@ class Program
     /// </summary>
     /// <param name="input">Digits and signs input to be converted</param>
     /// <returns>Encoded text</returns>
-    private static string OldPhonePad(string input)
+    public static string OldPhonePad(string input)
     {
         // We expect to have # in the end of the input
         if (!input.Trim().EndsWith('#'))

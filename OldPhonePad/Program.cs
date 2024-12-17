@@ -7,7 +7,7 @@ public class Program
 {
     static void Main(string[] args)
     {
-        Console.Write("Please enter digits and sign to be converted: ");
+        Console.Write("Please enter digits and sign to be converted:");
         var input = Console.ReadLine();
         if (!string.IsNullOrEmpty(input))
         {
@@ -21,7 +21,7 @@ public class Program
     /// <returns>Encoded text</returns>
     public static string OldPhonePad(string input)
     {
-        // We expect to have # in the end of the input
+        // We expect to have # at the end of the input.
         if (!input.Trim().EndsWith('#'))
         {
             return "The provided input is not valid. Please add # at the end of the input.";
@@ -44,13 +44,13 @@ public class Program
         foreach (var stroke in strokeList)
         {
             // Determine the digit
-            var digit = int.Parse(stroke.Substring(0, 1));
+            var digit = int.Parse(stroke.Substring(0, 1));// For "333" it is 3
             // Determine the letter group by digit
-            var letterGroup = letterGroups[digit - 2];// Since our digits start from 2
+            var letterGroup = letterGroups[digit - 2];// Since our digits start from 2 so for 3, it will be DEF.
             // Char count to find letter index
-            var charCount = stroke.Length;
+            var charCount = stroke.Length;// For "333" it is 3
             // Find the letter
-            var letter = letterGroup[charCount - 1];
+            var letter = letterGroup[charCount - 1];// For "333" it is F
 
             result.Append(letter);
         }
@@ -65,7 +65,7 @@ public class Program
     /// <returns></returns>
     private static List<string> PrepareStrokeList(string input)
     {
-        // Cleanup the input. We don't need 1 and 0 digits
+        // Cleanup the input. We don't need 1 and 0 digits.
         input = input.Replace("1", string.Empty);
         input = input.Replace("0", string.Empty);
         input = input.Replace("#", string.Empty);
@@ -73,7 +73,7 @@ public class Program
         // Let's group digits to calculate char position later
         var matchList = Regex.Matches(input, @"(.)\1*", RegexOptions.IgnoreCase);
         // List non-empty matches because of spaces (pauses)
-        var strokeList = matchList.Cast<Match>().Select(match => match.Value).ToList().Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
+        var strokeList = matchList.Select(match => match.Value).ToList().Where(s => !string.IsNullOrWhiteSpace(s)).ToList();
         // Cleanup strokeList for deletions
         for (var i = 0; i < strokeList.Count; i++)
         {
